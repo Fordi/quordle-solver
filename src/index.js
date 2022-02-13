@@ -6,12 +6,7 @@ import { wordleState, evaluate } from './wordle.js';
 (async () => {
   const playTurn = () => {
     const state = getState();
-    if (state.isSolved) {
-      // console.log('Game is solved');
-      return [];
-    }
-    if (state.turn === 9) {
-      // console.log('Game is lost');
+    if (state.isSolved || state.turn === 9) {
       return [];
     }
     if (state.turn === 0) {
@@ -30,7 +25,6 @@ import { wordleState, evaluate } from './wordle.js';
     }).filter((a) => !!a);
     all = Array.from(new Set(all));
     const sumEntropy = (sum, word) => sum + wordWeight(word);
-    // const ttl = all.reduce(sumEntropy, 0);
     const freqTable = {};
     all.forEach((word) => {
       Array.from(word).forEach((letter) => {
@@ -43,9 +37,7 @@ import { wordleState, evaluate } from './wordle.js';
         * wordWeight(a)
     );
     all.sort((a, b) => tbl(b) - tbl(a));
-    // console.log(all.indexOf('crane'), wordWeight('crane'), wordWeight('sense'));
     let test = all.slice(0, 40);
-    // console.log(`${ttl} in ${all.length} words; doing the hard bit...`);
     const stateEntropy = states.map((st) => st.words.reduce(sumEntropy, 0));
     test = test.map((guess) => {
       let score = 0;
@@ -55,10 +47,8 @@ import { wordleState, evaluate } from './wordle.js';
           const result = evaluate(guess, solution);
           const nextState = curState.next(guess, result);
           const filtered = nextState.words.reduce(sumEntropy, 0);
-          // const ps = score;
           score += filtered / entropy;
           if (Number.isNaN(score) || score === -Infinity || score === Infinity) {
-            // console.log({ guess, solution, ps, filtered, entropy });
             throw new Error();
           }
         });
@@ -66,10 +56,6 @@ import { wordleState, evaluate } from './wordle.js';
       const res = { guess, score: score * frequencyData[guess] };
       return res;
     }).sort((a, b) => b.score - a.score);
-    // console.log(`${test.length}: ${test.map(a => a.guess).join(' ')}`);
-    // await tryWord(test[0].guess);
-    // console.log(test);
-    // return getState().isSolved;
     return test;
   };
   const play1Turn = async () => {
@@ -128,8 +114,7 @@ import { wordleState, evaluate } from './wordle.js';
         top: '52px',
         left: 0,
         width: '320px',
-        height: '50%',
-        outline: '1px solid blue',
+        height: 'calc(100vh - 52px)',
         'overflow-y': 'scroll',
         'overflow-x': 'hidden',
       },

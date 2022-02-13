@@ -1,17 +1,7 @@
-Browser Extension Template
---------------------------
+Quordle Solver
+--------------
 
-This is a template repository for building a simple on-page Chromium / Firefox extension.
-
-## Development
-
-* Click "Use this template" on github and follow the prompts to create your own repo
-* Run `npm i` to generate a `package-lock.json` and `manifest.json` and commit them
-* Run `npm run watch` to build and maintain a `manifest.json` while you work
-* Update stuff in `package.json` as needed.  Specifically `name`, `version`,
-  and any properites you want in the extension manifest under `manifest`.
-   (note: `web_accessible_resources` will be automatically derived from the contents
-   of `./src` and the value of the same in `manifest`)
+This is a Quordle solver written as a browser extension
 
 ## Basic installation
 
@@ -29,3 +19,34 @@ This is a template repository for building a simple on-page Chromium / Firefox e
 * Click "This Firefox"
 * Click "Load Temprary Add-on"
 * Browse to this folder, and select `manifest.json`
+
+## Usage
+
+Once installed, it'll add a sidebar to Quordle with four buttons:
+
+### Next
+
+Look at the corpus of remaining words, and pick the 40 best, reporting them beneath.  You can click one of those words to play it.  Turn 1 is _always_ crane (because it takes like 10 minutes to find in the complete corpus).  Turn 2 usually takes a few seconds to work out.
+
+### Play
+
+Play the next best word.
+
+### Solve
+
+Just solve the puzzle
+
+### Clear
+
+Reset the puzzle
+
+## Development
+
+* Click "Use this template" on github and follow the prompts to create your own repo
+* Run `npm i` to generate a `package-lock.json` and `manifest.json` and commit them
+* Run `npm run watch` to build and maintain a `manifest.json` while you work
+* Update stuff in `package.json` as needed.  Specifically `name`, `version`,
+  and any properites you want in the extension manifest under `manifest`.
+   (note: `web_accessible_resources` will be automatically derived from the contents
+   of `./src` and the value of the same in `manifest`)
+
