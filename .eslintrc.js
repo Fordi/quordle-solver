@@ -1,5 +1,3 @@
-const { resolve } = require('path');
-
 module.exports = {
   extends: [
     'airbnb',
@@ -14,7 +12,7 @@ module.exports = {
     'lit',
   ],
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     ecmaFeatures: {
       jsx: false,
       modules: true,
@@ -29,11 +27,9 @@ module.exports = {
     'lit/binding-positions': 'off',
     // Allows generic closers (</>)
     'lit/no-invalid-html': 'off',
+    'no-await-in-loop': 'off',
   },
   settings: {
-    'import/resolver': {
-      [resolve(__dirname, './tools/urlResolver.js')]: {},
-    },
     react: {
       version: '17.0.2',
     },

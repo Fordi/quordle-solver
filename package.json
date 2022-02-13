@@ -1,24 +1,21 @@
 {
-  "name": "extension-name",
+  "name": "quordle-solver",
   "manifest": {
     "manifest_version": 2,
     "browser_action": {},
-    "name": "Extension name",
+    "name": "Quordle Solver",
     "content_scripts": [
       {
         "matches": [
-          "https://*/*",
-          "http://*/*"
+          "https://www.quordle.com/*"
         ],
         "js": [
           "extension.js"
         ]
       }
-    ],
-    "web_accessible_resources": [
     ]
   },
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "postinstall": "node ./build/remanifest.js",
     "lint": "eslint src/**/*.js",

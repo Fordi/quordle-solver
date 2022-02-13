@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "browser_action": {},
+  "name": "Quordle Solver",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.quordle.com/*"
+      ],
+      "js": [
+        "extension.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "src/dom.js",
+    "src/frequencyData.js",
+    "src/index.js",
+    "src/utilities.js",
+    "src/wordWeight.js",
+    "src/wordle.js"
+  ]
+}
