@@ -3,15 +3,13 @@ import { wordWeight } from './wordWeight.js';
 import { getState, tryWord, createElement } from './dom.js';
 import { wordleState, evaluate } from './wordle.js';
 
+const openers = ['soare', 'salet', 'crane', 'trace', 'crate', 'reast', 'crane', 'slane', 'slant', 'carte', 'carle'];
+
 (async () => {
   const playTurn = () => {
     const state = getState();
     if (state.isSolved || state.turn === 9) {
       return [];
-    }
-    if (state.turn === 0) {
-      // Best start word is 'CRANE'
-      return [{ guess: 'crane', score: 1.0 }];
     }
     // Find best next word for each game
     let all = [];
@@ -23,7 +21,12 @@ import { wordleState, evaluate } from './wordle.js';
       all.push(...nextState.words);
       return nextState;
     }).filter((a) => !!a);
-    all = Array.from(new Set(all));
+    if (state.turn === 0) {
+      // Pick an opener at random
+      all = openers.slice();
+    } else {
+      all = Array.from(new Set(all));
+    }
     const sumEntropy = (sum, word) => sum + wordWeight(word);
     const freqTable = {};
     all.forEach((word) => {
@@ -60,10 +63,18 @@ import { wordleState, evaluate } from './wordle.js';
   };
   const play1Turn = async () => {
     const options = playTurn();
-    if (!options.length) return getState().isSolved;
-    await tryWord(options[0].guess);
+    const state = getState();
+    if (!options.length) {
+      return state.isSolved || state.turn === 9;
+    }
+    const games = state.games.filter(({ isSolved }) => !isSolved).length;
+    // Since we have X games, anneal a bit.
+    const which = Math.floor(Math.random() * Math.min(games, options.length));
+    const next = options[which];
+    await tryWord(next.guess);
     if (!options.length) return true;
-    return getState().isSolved;
+    const { isSolved, turn } = getState();
+    return isSolved || turn === 9;
   };
   const solveGame = async () => {
     while (!await play1Turn());
@@ -83,7 +94,7 @@ import { wordleState, evaluate } from './wordle.js';
         },
       }, [
         createElement('td', {}, [document.createTextNode(guess)]),
-        createElement('td', {}, [document.createTextNode(score)]),
+        createElement('td', {}, [document.createTextNode((-Math.log2(score)).toFixed(3))]),
       ]));
     });
   };

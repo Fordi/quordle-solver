@@ -8,14 +8,4 @@ export const totalEntropy = (
 
 export const sigmoid = (p) => 1 / (1 + Math.exp(-p));
 
-export const wordWeight = (word) => {
-  const f = frequencyData[word];
-  const l = Math.log2(f + 1);
-  const p = l / totalEntropy;
-  const s = sigmoid(p);
-  if (Number.isNaN(s)) {
-    // console.log({ f, l, p, s });
-    throw new Error();
-  }
-  return s;
-};
+export const wordWeight = (word) => frequencyData[word];
