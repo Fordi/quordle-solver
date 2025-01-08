@@ -18,7 +18,7 @@
     "src/frequencyData.js",
     "src/index.js",
     "src/utilities.js",
-    "src/wordWeight.js",
-    "src/wordle.js"
+    "src/wordle.js",
+    "src/wordWeight.js"
   ]
 }

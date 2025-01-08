@@ -17,7 +17,7 @@ This is a Quordle solver written as a browser extension
 
 * In Firefox, browse to `about:debugging`
 * Click "This Firefox"
-* Click "Load Temprary Add-on"
+* Click "Load Temporary Add-on"
 * Browse to this folder, and select `manifest.json`
 
 ## Usage
@@ -43,10 +43,9 @@ Reset the puzzle
 ## Development
 
 * Click "Use this template" on github and follow the prompts to create your own repo
-* Run `npm i` to generate a `package-lock.json` and `manifest.json` and commit them
-* Run `npm run watch` to build and maintain a `manifest.json` while you work
+* Run `pnpm i` to generate a `pnpm-lock.yaml` and `manifest.json` and commit them
+* Run `pnpm watch` to build and maintain a `manifest.json` while you work
 * Update stuff in `package.json` as needed.  Specifically `name`, `version`,
   and any properites you want in the extension manifest under `manifest`.
    (note: `web_accessible_resources` will be automatically derived from the contents
    of `./src` and the value of the same in `manifest`)
-

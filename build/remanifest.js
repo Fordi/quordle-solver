@@ -1,6 +1,6 @@
 /* eslint-disable no-console, import/no-extraneous-dependencies */
-const { promises: { readdir, readFile, writeFile } } = require('fs');
-const { join, resolve } = require('path');
+const { readdir, readFile, writeFile } = require('node:fs/promises');
+const { join, resolve } = require('node:path');
 const chokidar = require('chokidar');
 
 const root = resolve(__dirname, '..');
@@ -40,7 +40,7 @@ const remanifest = async () => {
     ...baseManifest,
     web_accessible_resources: Array.from(new Set([
       ...baseRes,
-      ...await lsr('./src'),
+      ...(await lsr('./src')).map((path) => path.replace(/\\/, '/')),
     ])),
   };
 

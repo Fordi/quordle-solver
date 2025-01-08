@@ -28,6 +28,7 @@ module.exports = {
     // Allows generic closers (</>)
     'lit/no-invalid-html': 'off',
     'no-await-in-loop': 'off',
+    'no-promise-executor-return': 'off',
   },
   settings: {
     react: {
